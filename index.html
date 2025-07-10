@@ -1,260 +1,155 @@
-<!DOCTYPE html>
-<html lang="ro">
+<!DOCTYPE html><html lang="ro">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Squid Game Minecraft - Cool Edition</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
-<style>
-  * { box-sizing: border-box; }
-  html, body {
-    margin: 0; padding: 0; height: 100%;
-    font-family: 'Orbitron', sans-serif;
-    background: #000;
-    overflow: hidden;
-    color: #e50914;
-  }
-  .background-video {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    z-index: -10;
-    filter: brightness(0.15) contrast(1.5);
-  }
-  .overlay {
-    position: fixed;
-    top:0; left:0; width:100%; height:100%;
-    background: rgba(0,0,0,0.7);
-    z-index: -5;
-  }
-  .content {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    max-width: 400px;
-    width: 90vw;
-  }
-  h1 {
-    font-size: 4.5rem;
-    margin: 0 0 40px;
-    text-shadow:
-      0 0 6px #ff0000,
-      0 0 20px #e50914,
-      0 0 30px #ff0000,
-      0 0 40px #ff3333,
-      0 0 70px #ff1a1a;
-    animation: glitch 2s infinite;
-  }
-  @keyframes glitch {
-    0% {
-      text-shadow:
-        2px 0 red,
-        -2px 0 cyan,
-        0 0 10px #ff0000;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Program Antrenament Bodyweight – Muay Thai</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
     }
-    20% {
-      text-shadow:
-        -2px 0 red,
-        2px 0 cyan,
-        0 0 10px #e50914;
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    40% {
-      text-shadow:
-        2px 2px red,
-        -2px -2px cyan,
-        0 0 20px #ff3333;
+    h1, h2 {
+      color: #2c3e50;
     }
-    60% {
-      text-shadow:
-        -2px -2px red,
-        2px 2px cyan,
-        0 0 20px #ff1a1a;
+    .day {
+      margin-bottom: 30px;
     }
-    80% {
-      text-shadow:
-        2px 0 red,
-        -2px 0 cyan,
-        0 0 10px #ff0000;
+    .day h2 {
+      background: #2980b9;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
     }
-    100% {
-      text-shadow:
-        -2px 0 red,
-        2px 0 cyan,
-        0 0 10px #e50914;
+    ul {
+      list-style-type: none;
+      padding: 0;
     }
-  }
-  button {
-    cursor: pointer;
-    font-size: 2rem;
-    color: #fff;
-    background: transparent;
-    border: 3px solid #e50914;
-    border-radius: 50px;
-    padding: 20px 60px;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    box-shadow:
-      0 0 10px #e50914,
-      0 0 30px #ff0000;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-  }
-  button:hover {
-    color: #ff3333;
-    box-shadow:
-      0 0 20px #ff0000,
-      0 0 50px #ff1a1a,
-      0 0 70px #ff4d4d;
-    transform: scale(1.1);
-  }
-  button:active {
-    transform: scale(0.95);
-  }
-  .code-box {
-    margin-top: 50px;
-    font-size: 6rem;
-    letter-spacing: 15px;
-    color: #ff1a1a;
-    text-shadow:
-      0 0 10px #ff1a1a,
-      0 0 40px #ff4d4d;
-    opacity: 0;
-    transform: scale(0.8);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-  }
-  .visible {
-    opacity: 1;
-    transform: scale(1);
-    animation: pulse 1.5s infinite alternate;
-  }
-  @keyframes pulse {
-    0% { text-shadow: 0 0 20px #ff4d4d; }
-    100% { text-shadow: 0 0 40px #ff0000; }
-  }
-  .rules {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 280px;
-    background: rgba(255, 0, 0, 0.2);
-    border: 2px solid #ff1a1a;
-    padding: 15px;
-    border-radius: 12px;
-    color: white;
-    font-size: 0.9rem;
-    text-align: left;
-    box-shadow: 0 0 10px #ff1a1a;
-    font-weight: 700;
-    z-index: 100;
-    user-select: none;
-  }
-  .rules strong {
-    color: #ff4d4d;
-  }
-  @media (max-width: 480px) {
-    h1 {
-      font-size: 2.8rem;
+    li {
+      background: #ecf0f1;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-    .code-box {
-      font-size: 3.5rem;
-      letter-spacing: 10px;
+    .check {
+      margin-left: 10px;
+      transform: scale(1.5);
     }
-    button {
-      font-size: 1.5rem;
-      padding: 15px 40px;
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 14px;
+      color: #777;
     }
-    .rules {
-      width: 90vw;
-      bottom: 10px;
-      right: 5vw;
-      font-size: 0.8rem;
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+      li {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
-  }
-</style>
+  </style>
 </head>
 <body>
-
-<!-- Background video -->
-<video class="background-video" autoplay muted loop>
-  <source src="https://cdn.coverr.co/videos/coverr-red-dust-9966/1080p.mp4" type="video/mp4" />
-</video>
-<div class="overlay"></div>
-
-<div class="content">
-  <h1>Squid Game<br />Minecraft</h1>
-  <button id="play">PLAY</button>
-  <div class="code-box" id="code"></div>
+  <div class="container">
+    <h1>Program Bodyweight Avansat – Suport Muay Thai (Fără Greutăți)</h1><div class="day">
+  <h2>Luni – Push Power</h2>
+  <ul>
+    <li>5 runde <input type="checkbox" class="check"></li>
+    <li>Pseudo Planche Push-ups – 10-12 reps <input type="checkbox" class="check"></li>
+    <li>Archer Push-ups – 8/parte <input type="checkbox" class="check"></li>
+    <li>Elevated Pike Push-ups – 10 reps <input type="checkbox" class="check"></li>
+    <li>Diamond Push-ups lente – 10 reps <input type="checkbox" class="check"></li>
+    <li>Plank Hold – 1 minut <input type="checkbox" class="check"></li>
+  </ul>
 </div>
 
-<!-- YouTube player container (hidden) -->
-<div id="player" style="display:none;"></div>
-
-<!-- Rules box -->
-<div class="rules">
-  <strong>Reguli:</strong><br />
-  1. Apasă PLAY pentru a genera un cod.<br />
-  2. Codul este unic și trebuie păstrat.<br />
-  3. Trimite codul Managerului <strong>ZeeZeron</strong> pentru a intra în joc.<br />
-  4. Doar participanții cu cod valid pot accesa serverul.<br />
-  5. Distracție plăcută și fii atent la pași!<br />
+<div class="day">
+  <h2>Marți – Tracțiuni & Muscle-up</h2>
+  <ul>
+    <li>4 seturi <input type="checkbox" class="check"></li>
+    <li>Strict Muscle-ups – 6 reps <input type="checkbox" class="check"></li>
+    <li>Pull-ups largi – 12-15 reps <input type="checkbox" class="check"></li>
+    <li>Chin-ups controlate – 10-12 reps <input type="checkbox" class="check"></li>
+    <li>Negative Muscle-ups (5 sec coborâre) – 4 reps <input type="checkbox" class="check"></li>
+    <li>Scapular Pull-ups – 12 reps <input type="checkbox" class="check"></li>
+    <li>Hanging L-Sit – 3x20 sec <input type="checkbox" class="check"></li>
+  </ul>
 </div>
 
-<script>
-  const button = document.getElementById("play");
-  const codeBox = document.getElementById("code");
+<div class="day">
+  <h2>Miercuri – Core & Control</h2>
+  <ul>
+    <li>4 runde <input type="checkbox" class="check"></li>
+    <li>Hanging Leg Raises – 15 reps <input type="checkbox" class="check"></li>
+    <li>Abdomene în V – 20 reps <input type="checkbox" class="check"></li>
+    <li>Hollow Body Hold – 40 sec <input type="checkbox" class="check"></li>
+    <li>Superman Hold – 30 sec <input type="checkbox" class="check"></li>
+    <li>Plank to Elbow Touch – 20 reps <input type="checkbox" class="check"></li>
+  </ul>
+</div>
 
-  function generateCode() {
-    return Math.floor(1000 + Math.random() * 9000);
-  }
+<div class="day">
+  <h2>Joi – Push + Pull Superset</h2>
+  <ul>
+    <li>3 Superseturi <input type="checkbox" class="check"></li>
+    <li>Flotări cu pauză jos – 15 reps / Tracțiuni lente – 8 reps <input type="checkbox" class="check"></li>
+    <li>Dips la paralele – 12-15 reps / Chin-ups explozive – 10 reps <input type="checkbox" class="check"></li>
+    <li>Pseudo planche hold – 15 sec / Australian pull-ups – 12-15 reps <input type="checkbox" class="check"></li>
+  </ul>
+</div>
 
-  button.addEventListener("click", () => {
-    let code = localStorage.getItem("squid_game_code");
-    if (!code) {
-      code = generateCode();
-      localStorage.setItem("squid_game_code", code);
-    }
-    codeBox.textContent = code;
-    codeBox.classList.add("visible");
-  });
+<div class="day">
+  <h2>Vineri – Picioare & Explozie</h2>
+  <ul>
+    <li>4 runde <input type="checkbox" class="check"></li>
+    <li>Pistol Squats – 6-8/parte <input type="checkbox" class="check"></li>
+    <li>Jump Squats – 15 reps <input type="checkbox" class="check"></li>
+    <li>Fandări săltate – 12/parte <input type="checkbox" class="check"></li>
+    <li>Wall Sit – 1 minut <input type="checkbox" class="check"></li>
+    <li>Sprinturi – 6x20m (pauză 20 sec) <input type="checkbox" class="check"></li>
+  </ul>
+</div>
 
-  window.addEventListener("load", () => {
-    const existingCode = localStorage.getItem("squid_game_code");
-    if (existingCode) {
-      codeBox.textContent = existingCode;
-      codeBox.classList.add("visible");
-    }
-  });
-</script>
+<div class="day">
+  <h2>Sâmbătă – Full Body Burnout</h2>
+  <ul>
+    <li>AMRAP 20 min <input type="checkbox" class="check"></li>
+    <li>10 Muscle-ups sau 15 Pull-ups <input type="checkbox" class="check"></li>
+    <li>20 Flotări Explosive <input type="checkbox" class="check"></li>
+    <li>30 Genuflexiuni <input type="checkbox" class="check"></li>
+    <li>10 Burpees <input type="checkbox" class="check"></li>
+    <li>Plank Static – 30 sec <input type="checkbox" class="check"></li>
+  </ul>
+</div>
 
-<!-- YouTube IFrame API -->
-<script src="https://www.youtube.com/iframe_api"></script>
-<script>
-  let player;
-  function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
-      height: '0',
-      width: '0',
-      videoId: 'xS1J1vynnaU',
-      playerVars: {
-        autoplay: 1,
-        loop: 1,
-        playlist: 'xS1J1vynnaU',
-        controls: 0,
-        modestbranding: 1,
-        mute: 0,
-      },
-      events: {
-        'onReady': (event) => {
-          event.target.setVolume(15); // volum redus la 15%
-          event.target.playVideo();
-        }
-      }
-    });
-  }
-</script>
+<div class="day">
+  <h2>Duminică – Recuperare Activă</h2>
+  <ul>
+    <li>Stretching static – 20-30 min <input type="checkbox" class="check"></li>
+    <li>Respirație box breathing – 4-4-4-4 <input type="checkbox" class="check"></li>
+    <li>Plimbare ușoară sau yoga – 30 min <input type="checkbox" class="check"></li>
+  </ul>
+</div>
 
+<div class="footer">
+  Creat de un program personalizat pentru sportivi bodyweight & Muay Thai 💪
+</div>
+
+  </div>
 </body>
-</html>
+                                        </html>
