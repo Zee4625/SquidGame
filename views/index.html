@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Alice in Borderland - Leaderboard</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem;
+      background: #1e1e1e;
+      border-bottom: 2px solid #444;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: #ff0033;
+    }
+
+    .login-box {
+      background: #1e1e1e;
+      padding: 1.5rem;
+      margin: 2rem auto;
+      width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ff0033;
+    }
+
+    .login-box h2 {
+      margin-bottom: 1rem;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 5px;
+      background: #333;
+      color: white;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ff0033;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .leaderboard {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #1e1e1e;
+      padding: 1rem;
+      border-radius: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 0.8rem;
+      text-align: center;
+      border-bottom: 1px solid #444;
+    }
+
+    th {
+      color: #ff0033;
+      font-size: 1.1rem;
+    }
+
+    .status-alive {
+      color: #00ff00;
+      font-weight: bold;
+    }
+
+    .status-eliminated {
+      color: #ff0000;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Alice in Borderland: Game Leaderboard</h1>
+  </header>
+
+  <div class="login-box">
+    <h2>Login Player</h2>
+    <input type="text" placeholder="Username" id="username">
+    <input type="password" placeholder="Password" id="password">
+    <button onclick="login()">Login</button>
+  </div>
+
+  <div class="leaderboard" id="leaderboard" style="display: none;">
+    <h2 style="text-align:center; color:#ff0033;">Top Players</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Username</th>
+          <th>Rating</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="leaderboard-body">
+        <!-- Populat dinamic -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    async function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      const res = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+      });
+
+      if (res.redirected) {
+        loadLeaderboard();
+      } else {
+        alert('Login failed. Try again.');
+      }
+    }
+
+    async function loadLeaderboard() {
+      document.querySelector('.login-box').style.display = 'none';
+      document.getElementById('leaderboard').style.display = 'block';
+
+      const res = await fetch('http://localhost:3000/leaderboard');
+      const html = await res.text();
+      document.open();
+      document.write(html);
+      document.close();
+    }
+  </script>
+
+</body>
+</html>
