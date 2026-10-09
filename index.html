@@ -1,200 +1,129 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- saved from url=(0022)http://195.223.180.50/ -->
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>body {transition: opacity ease-in 0.2s; } 
-body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
-</style>
-	
-	<meta name="robots" content="all">
-	<title>webcam 7</title>
-	<link rel="stylesheet" href="./webcam 7_files/default.css" media="screen">
-	<script type="text/javascript">
-	</script>
-	<script type="text/javascript" src="./webcam 7_files/mootools-1.2-core.js.download"></script>
-	<script type="text/javascript" src="./webcam 7_files/mootools-1.2-more.js.download"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Temp Mail</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body id="webcamXP-body">
-<div id="container">
- <div id="fwindowholder"><span style="display:none">.</span></div>
-	<div id="intro">
-		<div id="pageHeader">
-			<h1><span>Albergo del Senato</span></h1>
-			<h2><span>Roma</span></h2>
-		</div>
-		<div class="wxptopnav">
-		  <div class="wxpmenu">
-<span class="btn-start">&nbsp;</span><a class="btn-arrow" href="http://195.223.180.50/home.html"><span>Home</span></a><a class="btn-arrow" href="http://195.223.180.50/multi.html"><span>Multi view</span></a><a class="btn-arrow" href="http://195.223.180.50/mobile.html"><span>Smartphone</span></a><a class="btn-arrow" href="http://195.223.180.50/gallery.html"><span>Gallery</span></a><a class="btn-arrow" href="http://195.223.180.50/admin.html"><span>Administration</span></a><span class="btn-stop">&nbsp;</span><br>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col items-center justify-center p-4">
 
-		  </div>
-		  <div class="wxplogin">
-Not logged in
-		  </div>
-		</div>
-<div class="wxpcontainer">
-		  <div class="wxpsrcsel">
-	<script type="text/javascript">
-var height_array = new Array();
-var width_array = new Array();
-width_array[1] = 800;
-height_array[1] = 450;
-	function CamSelect()
-	{
-	        var destSrc = document.getElementById("srcSelect").value;
-	        var destMode = document.getElementById("modeSelect").value;
-	        if (destMode == "0"){
-	        currentCamera1 = destSrc;
-	        document.images.webcam1.onload = DoIt1;
-	        document.images.webcam1.onerror = ErrorImage1;
-	        document.images.webcam1.src = "cam_" + currentCamera1 + ".jpg;"
-	        document.images.webcam1.width = width_array[currentCamera1];
-	        document.images.webcam1.height = height_array[currentCamera1];
-          var mydiv = document.getElementById("wxpcamdiv");
-	        if (mydiv != null){
-	        mydiv.style.width = parseInt(width_array[currentCamera1]+5) + "px";
-	        }
-	        if (mydiv == null){alert('div not found');}
-          var myifr = document.getElementById("_iframe-ptz");
-          if (myifr != null) myifr.src = "/ptz?src=" + destSrc;
-	        }else{
-	        ModeSelect();
-	        }
-	}
-	function ModeSelect()
-	{
-	        var currentPage = "/";
-	        var destSrc = document.getElementById("srcSelect").value;
-	        var destMode = document.getElementById("modeSelect").value;
-	        parent.location.href = currentPage + "?src=" + destSrc + "&mode=" + destMode;
-	}
-	</script>
-<select id="srcSelect" onchange="CamSelect()">
-  <option selected="" value="1">Source 1</option>
-</select>&nbsp;
-<select id="modeSelect" onchange="ModeSelect()">
-  <option selected="" value="0">JavaScript</option>
-  <option value="1">Motion JPEG [Firefox]</option>
-  <option value="2">Flash JPEG Stream</option>
-  <option value="3">Flash FLV Stream</option>
-</select>
-		  </div>
-		  <br>
-		  <div id="wxpcamdiv" class="wxpcamdiv" style="width : 800px">
-		  <div id="wxpdragcam" class="wxpdragme">Live View</div>
-<img src="./webcam 7_files/cam_1.jpg" class="webcam" id="webcam1" onmousedown="PTZMouseDown1(event)" width="800" height="450" alt="Live Stream">
-<script type="text/javascript">
-<!--
-currentCamera1= 1;
-errorimg1= 0;
-DoIt1();
-document.images.webcam1.onload = DoIt1();
-document.images.webcam1.onerror = ErrorImage1();
-function LoadImage1()
-{
-        uniq1 = Math.random();
-        document.images.webcam1.src = "cam_" + currentCamera1 + ".jpg?uniq="+uniq1;
-        document.images.webcam1.onload = DoIt1;
-}
-function PTZMouseDown1(e)
-{
-        var IE = document.all?true:false;
-        var x,y;
-        var myx,myy;
-        var myifr = document.getElementById("_iframe-ptz");
-        tp = getElPos1();
-        myx = tp[0];
-        myy = tp[1];
-        if(IE){
-        var scrollX = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft;
-        var scrollY = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop;
-        x = event.clientX - myx + scrollX;
-        y = event.clientY - myy + scrollY;
-        } else {
-        x = e.pageX - myx;
-        y = e.pageY - myy;
+    <div class="w-full max-w-xl bg-slate-800 rounded-2xl shadow-xl p-6 border border-slate-700">
+        <h1 class="text-2xl font-bold mb-2 text-center text-indigo-400">Temporary Email Box</h1>
+        <p class="text-slate-400 text-sm text-center mb-6">Your disposable inbox updates automatically every 10 seconds.</p>
+
+        <!-- Email Display Section -->
+        <div class="mb-6">
+            <label class="block text-xs uppercase tracking-wider text-slate-400 mb-2">Your Temp Email Address</label>
+            <div class="flex gap-2">
+                <input type="text" id="emailDisplay" readonly class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-indigo-300 font-mono text-sm focus:outline-none" value="Generating...">
+                <button onclick="copyEmail()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition cursor-pointer">Copy</button>
+                <button onclick="generateEmail()" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition cursor-pointer">New</button>
+            </div>
+        </div>
+
+        <!-- Inbox Section -->
+        <div>
+            <div class="flex justify-between items-center mb-3">
+                <h2 class="text-lg font-semibold">Inbox</h2>
+                <button onclick="checkInbox()" class="text-xs text-indigo-400 hover:text-indigo-300 underline cursor-pointer">Refresh Now</button>
+            </div>
+            
+            <div id="inboxList" class="space-y-3 max-h-60 overflow-y-auto pr-1">
+                <div class="text-center text-slate-500 py-6 text-sm">No messages yet. Waiting for incoming mail...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        let currentEmail = "";
+        let login = "";
+        let domain = "";
+
+        // Function to generate a random temp email
+        async function generateEmail() {
+            try {
+                document.getElementById("emailDisplay").value = "Loading...";
+                const response = await fetch('https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1');
+                const data = await response.json();
+                
+                currentEmail = data[0];
+                const parts = currentEmail.split('@');
+                login = parts[0];
+                domain = parts[1];
+
+                document.getElementById("emailDisplay").value = currentEmail;
+                document.getElementById("inboxList").innerHTML = '<div class="text-center text-slate-500 py-6 text-sm">No messages yet. Waiting for incoming mail...</div>';
+            } catch (error) {
+                console.error("Error generating email:", error);
+                document.getElementById("emailDisplay").value = "Error generating email. Try refreshing.";
+            }
         }
-        if ((width_array[currentCamera1] != null) && (width_array[currentCamera1] > 0)) x = Math.round((x * 400) / width_array[currentCamera1]);
-        if ((height_array[currentCamera1] != null) && (height_array[currentCamera1] > 0)) y = Math.round((y * 300) / height_array[currentCamera1]);
-        if (x > 400) x = 400;
-        if (y > 300) y = 300;
-        if (myifr != null) myifr.src = "ptz?src=" + currentCamera1 + "&moveto_x=" + x + "&moveto_y=" + y +"";
-        return true;
-}
-function getElPos1()
-{
-            el = document.images.webcam1;
-            x = el.offsetLeft;
-            y = el.offsetTop;
-            elp = el.offsetParent;
-            while(elp!=null)
-              { x+=elp.offsetLeft;
-                y+=elp.offsetTop;
-                elp=elp.offsetParent;
-              }
-            return new Array(x,y);
-}
-function ErrorImage1()
-{
-        errorimg1++;
-        if (errorimg1>3){
-              document.images.webcam1.onload = "";
-              document.images.webcam1.onerror = "";
-              document.images.webcam1.src = "offline.jpg";
-              }else{
-                uniq1 = Math.random();
-            document.images.webcam1.src = "cam_" + currentCamera1 + ".jpg?uniq="+uniq1;
-              }
-}
-function DoIt1()
-{
-        errorimg1=0;
-        window.setTimeout("LoadImage1();", 40);
-}
-//-->
-</script>
-		  <script type="text/javascript" language="javascript" charset="utf-8">
-		  // <![CDATA[
-		  new Drag('wxpcamdiv',{
-		  onStart:function(el)
-		  {
-		    el.setOpacity(.5);
-		  },
-		  onComplete:function(el)
-		  {
-		    el.setOpacity(1);
-		  }});
-		  // ]]>
-		  </script>
-		  </div>
-		  <br>
-		  <div id="wxpptz" class="wxpptz">
-		  <div id="wxpdragptz" class="wxpdragme">Pan, Tilt &amp; Zoom</div>
-<iframe id="_iframe-ptz" width="115" height="120" src="./webcam 7_files/ptz.html" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
-<br>
-		  </div><br>
-		  <script type="text/javascript" language="javascript" charset="utf-8">
-		  // <![CDATA[
-		  new Drag('wxpptz',{
-		  onStart:function(el)
-		  {
-		    el.setOpacity(.5);
-		  },
-		  onComplete:function(el)
-		  {
-		    el.setOpacity(1);
-		  }});
-		  // ]]>
-		  </script>
 
-</div><br>
-	 	<div class="wxpdark">
-	 	   <div class="internal_content">
-			powered by <a href="http://www.webcamxp.com/" target="_blank">webcam 7</a> v1.4.0.0
-	 	   </div>
-		</div>
-		<div class="footer">
-			<a href="http://validator.w3.org/check/referer" title="Check the validity of this site’s XHTML">xhtml</a> &nbsp;
-			<a href="http://jigsaw.w3.org/css-validator/check/referer" title="Check the validity of this site’s CSS">css</a> &nbsp;
-		</div>
-	</div>
-</div>
+        // Function to check the inbox for messages
+        async function checkInbox() {
+            if (!login || !domain) return;
 
-<span id="PING_CONTENT_PUSH_NOTIFICATION" style="display: none;"></span></body></html>
+            try {
+                const response = await fetch(`https://www.1secmail.com/api/v1/?action=getMessages&login=${login}&domain=${domain}`);
+                const messages = await response.json();
+                
+                const inboxList = document.getElementById("inboxList");
+
+                if (messages.length === 0) {
+                    return; // Keep existing empty state or list
+                }
+
+                inboxList.innerHTML = "";
+                messages.forEach(msg => {
+                    const msgCard = document.createElement("div");
+                    msgCard.className = "bg-slate-900 border border-slate-700 p-3 rounded-lg text-sm";
+                    msgCard.innerHTML = `
+                        <div class="flex justify-between text-xs text-slate-400 mb-1">
+                            <span class="font-semibold text-slate-300">${escapeHtml(msg.from)}</span>
+                            <span>${msg.date}</span>
+                        </div>
+                        <div class="font-medium text-indigo-300">${escapeHtml(msg.subject)}</div>
+                        <button onclick="readMessage('${msg.id}')" class="mt-2 text-xs text-indigo-400 hover:underline">Read Message</button>
+                    `;
+                    inboxList.appendChild(msgCard);
+                });
+            } catch (error) {
+                console.error("Error checking inbox:", error);
+            }
+        }
+
+        // Function to read a specific message content
+        async function readMessage(id) {
+            try {
+                const response = await fetch(`https://www.1secmail.com/api/v1/?action=readMessage&login=${login}&domain=${domain}&id=${id}`);
+                const msg = await response.json();
+                
+                alert(`From: ${msg.from}\nSubject: ${msg.subject}\n\nBody:\n${msg.textBody || msg.body}`);
+            } catch (error) {
+                console.error("Error reading message:", error);
+            }
+        }
+
+        // Helper to copy text to clipboard
+        function copyEmail() {
+            const emailInput = document.getElementById("emailDisplay");
+            navigator.clipboard.writeText(emailInput.value);
+            alert("Email copied to clipboard!");
+        }
+
+        // Simple HTML escape to prevent injection
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        // Initialize on load and poll every 10 seconds
+        window.onload = () => {
+            generateEmail();
+            setInterval(checkInbox, 10000);
+        };
+    </script>
+</body>
+</html>
