@@ -3,170 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Working Temporary Email Box</title>
-    <!-- Tailwind CSS for styling -->
+    <title>Live Temporary Email</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col items-center justify-center p-4">
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col items-center justify-center p-4 font-sans">
 
-    <div class="w-full max-w-xl bg-slate-800 rounded-2xl shadow-xl p-6 border border-slate-700">
-        <h1 class="text-2xl font-bold mb-2 text-center text-indigo-400">Temporary Email Box</h1>
-        <p class="text-slate-400 text-sm text-center mb-6">Your live disposable inbox checks automatically every 10 seconds.</p>
+    <div class="w-full max-w-2xl bg-slate-800 rounded-2xl shadow-2xl p-6 border border-slate-700">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h1 class="text-2xl font-bold text-indigo-400">Temporary Email Box</h1>
+                <p class="text-slate-400 text-sm">CORS-enabled live temporary inbox.</p>
+            </div>
+            <span id="statusBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                Live Sync
+            </span>
+        </div>
 
-        <!-- Email Display Section -->
+        <!-- Address Bar -->
         <div class="mb-6">
-            <label class="block text-xs uppercase tracking-wider text-slate-400 mb-2">Your Temp Email Address</label>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Your Address</label>
             <div class="flex gap-2">
-                <input type="text" id="emailDisplay" readonly class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-indigo-300 font-mono text-sm focus:outline-none" value="Initializing...">
-                <button onclick="copyEmail()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition cursor-pointer">Copy</button>
-                <button onclick="generateEmail()" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition cursor-pointer">New</button>
+                <input type="text" id="emailDisplay" readonly class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-indigo-300 font-mono text-sm focus:outline-none" value="Connecting to server...">
+                <button onclick="copyEmail()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2.5 rounded-xl text-sm font-semibold transition cursor-pointer flex items-center gap-1">
+                    Copy
+                </button>
+                <button onclick="generateEmail()" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2.5 rounded-xl text-sm font-semibold transition cursor-pointer flex items-center gap-1">
+                    New
+                </button>
             </div>
         </div>
 
-        <!-- Inbox Section -->
+        <!-- Inbox List -->
         <div>
             <div class="flex justify-between items-center mb-3">
-                <h2 class="text-lg font-semibold">Inbox</h2>
-                <button onclick="checkInbox()" class="text-xs text-indigo-400 hover:text-indigo-300 underline cursor-pointer">Refresh Now</button>
+                <h2 class="text-lg font-semibold text-slate-200">Inbox</h2>
+                <button onclick="checkInbox()" class="text-xs text-indigo-400 hover:text-indigo-300 font-medium cursor-pointer flex items-center gap-1">
+                    ↻ Refresh
+                </button>
             </div>
             
-            <div id="inboxList" class="space-y-3 max-h-60 overflow-y-auto pr-1">
-                <div class="text-center text-slate-500 py-6 text-sm">No messages yet. Waiting for incoming mail...</div>
+            <div id="inboxList" class="space-y-3 max-h-72 overflow-y-auto pr-1">
+                <div class="text-center text-slate-500 py-10 text-sm">
+                    Connecting to mail server...
+                </div>
             </div>
-        </div>
-        
-        <!-- Attribution requirement for mail.tm -->
-        <div class="mt-6 text-center text-xs text-slate-500">
-            Powered by <a href="https://mail.tm" target="_blank" class="underline hover:text-slate-400">mail.tm</a>
         </div>
     </div>
 
-    <!-- JavaScript Logic -->
-    <script>
-        let currentEmail = "";
-        let currentPassword = "";
-        let currentToken = "";
+    <!-- Message Viewer Modal -->
+    <div id="messageModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-slate-800 border border-slate-700 w-full max-w-xl rounded-2xl p-6 shadow-2xl max-h-[85vh] flex flex-col">
+            <div class="flex justify-between items-start mb-4 pb-3 border-b border-slate-700">
+                <div>
+                    <h3 id="modalSubject" class="text-lg font-bold text-indigo-300 mb-1">Subject</h3>
+                    <p id="modalFrom" class="text-xs text-slate-400">From: -</p>
+                    <p id="modalDate" class="text-xs text-slate-500">Date: -</p>
+                </div>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-200 text-xl font-bold px-2 py-1 cursor-pointer">&times;</button>
+            </div>
+            <div id="modalBody" class="text-slate-200 text-sm overflow-y-auto space-y-2 flex-1 leading-relaxed bg-slate-900 p-4 rounded-xl border border-slate-700/50">
+                Loading content...
+            </div>
+            <div class="mt-4 text-right">
+                <button onclick="closeModal()" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
 
-        // Function to create a brand new email account using mail.tm API
+    <!-- Application Script -->
+    <script>
+        let sidToken = "";
+        let currentEmail = "";
+
+        // Generate a new temporary email session via Guerrilla Mail API
         async function generateEmail() {
             try {
-                document.getElementById("emailDisplay").value = "Fetching domain...";
-                document.getElementById("inboxList").innerHTML = '<div class="text-center text-slate-500 py-6 text-sm">Setting up inbox...</div>';
+                document.getElementById("emailDisplay").value = "Generating new address...";
+                document.getElementById("inboxList").innerHTML = '<div class="text-center text-slate-500 py-10 text-sm">Setting up mailbox...</div>';
 
-                // 1. Get available domains
-                const domainRes = await fetch('https://api.mail.tm/domains');
-                const domainData = await domainRes.json();
-                const domains = domainData['hydra:member'] || domainData;
+                const response = await fetch('https://api.guerrillamail.com/ajax.php?f=get_email_address');
+                if (!response.ok) throw new Error("Network error fetching address");
+
+                const data = await response.json();
                 
-                if (!domains || domains.length === 0) throw new Error("No domains available");
-                const selectedDomain = domains[0].domain;
-
-                // 2. Generate random credentials
-                const randomUser = Math.random().toString(36.substring(2), 11) + Math.random().toString(36).substring(2, 7);
-                currentEmail = `${randomUser}@${selectedDomain}`;
-                currentPassword = "Pass" + Math.random().toString(36).substring(2, 10) + "!";
-
-                // 3. Register the account
-                const regRes = await fetch('https://api.mail.tm/accounts', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ address: currentEmail, password: currentPassword })
-                });
-
-                if (!regRes.ok) throw new Error("Failed to create account");
-
-                // 4. Authenticate/Get Token
-                const tokenRes = await fetch('https://api.mail.tm/token', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ address: currentEmail, password: currentPassword })
-                });
-
-                const tokenData = await tokenRes.json();
-                currentToken = tokenData.token;
-
-                if (!currentToken) throw new Error("Failed to authenticate session");
+                sidToken = data.sid_token;
+                currentEmail = data.email_addr;
 
                 document.getElementById("emailDisplay").value = currentEmail;
-                document.getElementById("inboxList").innerHTML = '<div class="text-center text-slate-500 py-6 text-sm">No messages yet. Waiting for incoming mail...</div>';
+                checkInbox();
             } catch (error) {
                 console.error("Error generating email:", error);
-                document.getElementById("emailDisplay").value = "Error generating email. Click 'New'.";
-                document.getElementById("inboxList").innerHTML = '<div class="text-center text-rose-400 py-6 text-sm">Failed to connect to mail server. Try clicking "New".</div>';
+                document.getElementById("emailDisplay").value = "Connection error. Click 'New' to retry.";
+                document.getElementById("inboxList").innerHTML = '<div class="text-center text-rose-400 py-8 text-sm">Failed to connect to GuerrillaMail server. Click "New" to try again.</div>';
             }
         }
 
-        // Function to check the inbox for messages
+        // Check inbox for incoming messages
         async function checkInbox() {
-            if (!currentToken) return;
+            if (!sidToken) return;
 
             try {
-                const response = await fetch('https://api.mail.tm/messages', {
-                    headers: { 'Authorization': `Bearer ${currentToken}` }
-                });
-                
+                const response = await fetch(`https://api.guerrillamail.com/ajax.php?f=check_email&sid_token=${encodeURIComponent(sidToken)}&seq=0`);
                 if (!response.ok) return;
-                
+
                 const data = await response.json();
-                const messages = data['hydra:member'] || data;
-                
+                const messages = data.list || [];
                 const inboxList = document.getElementById("inboxList");
 
-                if (!messages || messages.length === 0) {
-                    return; 
+                if (messages.length === 0) {
+                    inboxList.innerHTML = '<div class="text-center text-slate-500 py-10 text-sm">No messages yet. Send an email to the address above to test.</div>';
+                    return;
                 }
 
                 inboxList.innerHTML = "";
                 messages.forEach(msg => {
-                    const msgCard = document.createElement("div");
-                    msgCard.className = "bg-slate-900 border border-slate-700 p-3 rounded-lg text-sm";
-                    msgCard.innerHTML = `
-                        <div class="flex justify-between text-xs text-slate-400 mb-1">
-                            <span class="font-semibold text-slate-300">${escapeHtml(msg.from.address)}</span>
-                            <span>${new Date(msg.createdAt).toLocaleTimeString()}</span>
+                    const card = document.createElement("div");
+                    card.className = "bg-slate-900 border border-slate-700 p-4 rounded-xl hover:border-indigo-500/50 transition cursor-pointer";
+                    card.onclick = () => readMessage(msg.mail_id);
+                    
+                    card.innerHTML = `
+                        <div class="flex justify-between items-center text-xs text-slate-400 mb-1">
+                            <span class="font-semibold text-slate-300 truncate max-w-[200px]">${escapeHtml(msg.mail_from)}</span>
+                            <span>${escapeHtml(msg.mail_date)}</span>
                         </div>
-                        <div class="font-medium text-indigo-300">${escapeHtml(msg.subject || '(No Subject)')}</div>
-                        <button onclick="readMessage('${msg.id}')" class="mt-2 text-xs text-indigo-400 hover:text-indigo-300 underline cursor-pointer">Read Message</button>
+                        <div class="font-medium text-indigo-300 text-sm mb-1 truncate">${escapeHtml(msg.mail_subject || '(No Subject)')}</div>
+                        <div class="text-xs text-slate-400 truncate">${escapeHtml(msg.mail_excerpt || '')}</div>
                     `;
-                    inboxList.appendChild(msgCard);
+                    inboxList.appendChild(card);
                 });
             } catch (error) {
                 console.error("Error checking inbox:", error);
             }
         }
 
-        // Function to read a specific message content
-        async function readMessage(id) {
+        // Read message content inside modal dialog
+        async function readMessage(mailId) {
+            const modal = document.getElementById("messageModal");
+            const modalSubject = document.getElementById("modalSubject");
+            const modalFrom = document.getElementById("modalFrom");
+            const modalDate = document.getElementById("modalDate");
+            const modalBody = document.getElementById("modalBody");
+
+            modalSubject.textContent = "Loading...";
+            modalFrom.textContent = "From: -";
+            modalDate.textContent = "Date: -";
+            modalBody.innerHTML = '<p class="text-slate-500 italic">Fetching message content...</p>';
+            modal.classList.remove("hidden");
+
             try {
-                const response = await fetch(`https://api.mail.tm/messages/${id}`, {
-                    headers: { 'Authorization': `Bearer ${currentToken}` }
-                });
-                const msg = await response.json();
+                const response = await fetch(`https://api.guerrillamail.com/ajax.php?f=fetch_email&sid_token=${encodeURIComponent(sidToken)}&email_id=${encodeURIComponent(mailId)}`);
+                const data = await response.json();
+
+                modalSubject.textContent = data.mail_subject || "(No Subject)";
+                modalFrom.textContent = `From: ${data.mail_from}`;
+                modalDate.textContent = `Date: ${data.mail_date}`;
                 
-                let bodyContent = msg.text || msg.intro || "No text body found.";
-                alert(`From: ${msg.from.address}\nSubject: ${msg.subject}\n\nBody:\n${bodyContent}`);
+                // Display text body or sanitized HTML content
+                if (data.mail_body) {
+                    modalBody.innerHTML = data.mail_body;
+                } else {
+                    modalBody.textContent = "No content available.";
+                }
             } catch (error) {
                 console.error("Error reading message:", error);
-                alert("Could not load message body.");
+                modalBody.textContent = "Error loading message details.";
             }
         }
 
-        // Helper to copy text to clipboard
+        // Close reader modal
+        function closeModal() {
+            document.getElementById("messageModal").classList.add("hidden");
+        }
+
+        // Copy address to clipboard
         function copyEmail() {
             const emailInput = document.getElementById("emailDisplay");
             navigator.clipboard.writeText(emailInput.value);
             alert("Email copied to clipboard!");
         }
 
-        // Simple HTML escape to prevent injection
+        // Prevent HTML injection
         function escapeHtml(str) {
             return (str || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         }
 
-        // Initialize on load and poll every 10 seconds
+        // Start session and poll inbox every 8 seconds
         window.onload = () => {
             generateEmail();
-            setInterval(checkInbox, 10000);
+            setInterval(checkInbox, 8000);
         };
     </script>
 </body>
